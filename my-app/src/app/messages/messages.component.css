@@ -1,0 +1,10 @@
+.snackBarContainer{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: #3c3131;
+}
+.closeIcon{
+    display: block;
+}
