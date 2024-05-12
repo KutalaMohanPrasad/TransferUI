@@ -10,16 +10,22 @@ export class EmployeeService{
     constructor(private httpClient: HttpClient){
 
     }
-    private getEmployeeDetails='http://localhost:8080/api/v1/getAllEmployeeDetails';
-    private createEmployee='/api/v1/createEmployee';
-    private udpateEmployee='/api/v1/updateEmployee';
-    private deleteEmployees='/api/v1/deleteEmployees';
+    private baseUrl: string = "http://localhost:8080/api/v1/"
+    private getEmployeeDetails='getAllEmployeeDetails';
+    private createEmployee='createEmployee';
+    private udpateEmployee='updateEmployee';
+    private deleteEmployeesurl='deleteEmployees';
 
     refreshData: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    
+
     getAllEmployeeDetails() {
-        return this.httpClient.get(this.getEmployeeDetails);
+        return this.httpClient.get(this.baseUrl+this.getEmployeeDetails);
     }
+    
+    deleteEmployees(employeeIds: any){
+        return this.httpClient.post(this.baseUrl+this.deleteEmployeesurl, employeeIds);
+    }
+
 
 }
 export interface UpdateEmployee{

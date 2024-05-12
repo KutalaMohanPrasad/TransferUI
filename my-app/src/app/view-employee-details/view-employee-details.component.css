@@ -6,5 +6,11 @@
 .detailsGrid{
     padding-left: 10px;
     padding-right: 10px;
-    margin-top: 100px;
+    margin-top: 0px;
+}
+
+.right-side-buttons{
+    margin-top: 70px;
+    margin-left: 90%;
+    margin-bottom: 10px;
 }
