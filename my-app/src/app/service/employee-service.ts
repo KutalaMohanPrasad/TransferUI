@@ -26,13 +26,16 @@ export class EmployeeService{
         return this.httpClient.post(this.baseUrl+this.deleteEmployeesurl, employeeIds);
     }
 
+    udpateEmployeeDetails(updateEmployeeRequest:UpdateEmployee) {
+        return this.httpClient.post(this.baseUrl+this.udpateEmployee, updateEmployeeRequest);
+    }
 
 }
 export interface UpdateEmployee{
         emp_id: number;
         name: string;
         job_name: string;
-        manager_id:string;
+        manager_id:number;
         salary: number;
         commission: number;
         dep_id: number;

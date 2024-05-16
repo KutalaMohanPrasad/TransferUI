@@ -11,6 +11,13 @@
 
 .right-side-buttons{
     margin-top: 70px;
-    margin-left: 90%;
+    margin-left: 80%;
+    margin-right: 10px;
     margin-bottom: 10px;
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+}
+button {
+    gap: 10px;
 }

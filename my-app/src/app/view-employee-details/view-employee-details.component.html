@@ -5,7 +5,13 @@
         (click)="getDeleteUsers()"
         [disabled]= "disable"
         >Delete User(s)</button>
+       <!--<button type="button" 
+        class="btn btn-primary btn-rounded" mdbRipple 
+        (click)="updateEmployeeDetails()"
+        [disabled]= "disableUpdateButton"
+        >Update User</button> --> 
     </section> 
+    <app-update-modal [rowSelection] = "selectedRows" ></app-update-modal>
     <section class="detailsGrid">
        <!--<ag-grid-angular class="ag-theme-quartz" 
         style="height: 600px;"

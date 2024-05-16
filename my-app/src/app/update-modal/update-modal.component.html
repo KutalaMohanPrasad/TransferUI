@@ -1,0 +1,65 @@
+<div>
+    <section class = "right-side-buttons">
+        <button class="btn btn-primary btn-rounded" (click)="open(content)" [disabled] = "(rowSelection.length != 1)"
+        >Update User</button>
+    </section>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Update Employee Details</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="updateUserForm">
+        <div class="form-group">
+            <label for="firstname">Employee Id</label>
+            <div class="input-group">
+              <input formControlName="emp_id" class="form-control" [value]="updateUserForm.value.emp_id" [readonly]= "true">
+            </div>
+          </div>
+        <div class="form-group">
+          <label for="firstname">Name</label>
+          <div class="input-group">
+            <input formControlName="name" class="form-control" [value]="updateUserForm.value.name">
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Job Name</label>
+            <div class="input-group">
+              <input formControlName="jobname" class="form-control" [value]="updateUserForm.value.job_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Manager Id</label>
+            <div class="input-group">
+              <input formControlName="manager_id" class="form-control" [value]="updateUserForm.value.manager_id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Salary</label>
+            <div class="input-group">
+              <input formControlName="salary" class="form-control" [value]="updateUserForm.value.salary" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Commission</label>
+            <div class="input-group">
+              <input formControlName="commission" class="form-control" [value]="updateUserForm.value.commission">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Department Id</label>
+            <div class="input-group">
+              <input formControlName="depId" class="form-control" [value]="updateUserForm.value.dep_id">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+            <button type="button" class="btn btn-outline-dark" (click)="updateEmployeeDetails()" [disabled]="!updateUserForm.valid">Submit</button>
+          </div>
+      </form>
+    </div>
+   
+  </ng-template>

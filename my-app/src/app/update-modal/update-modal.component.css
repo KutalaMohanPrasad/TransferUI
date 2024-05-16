@@ -1,0 +1,10 @@
+.right-side-buttons{
+    margin-top: -48px;
+    margin-left: 90%;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    gap: 10px; 
+}
+button {
+    gap: 10px;
+}

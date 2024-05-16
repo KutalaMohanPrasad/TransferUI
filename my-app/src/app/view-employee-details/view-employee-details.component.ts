@@ -1,27 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import {ColDef, GridApi, GridOptions, SelectionChangedEvent} from 'ag-grid-community';
 import { Subscription } from 'rxjs';
 import { BaseResponse } from '../response/baseResponse';
 import { Status } from '../response/status';
-import { EmployeeDetails, EmployeeService} from '../service/employee-service';
+import { EmployeeDetails, EmployeeService, UpdateEmployee} from '../service/employee-service';
 import { Message, MessageService } from '../service/message-service';
 import 'ag-grid-community/styles/ag-grid.css';
 /* Quartz Theme Specific CSS */
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UpdateModalComponent } from '../update-modal/update-modal.component';
 @Component({
   selector: 'app-view-employee-details',
   standalone: true,
-  imports: [AgGridModule,
+  imports: [ AgGridModule,
              FormsModule,
-             CommonModule],
+             CommonModule,
+             UpdateModalComponent],
   templateUrl: './view-employee-details.component.html',
   styleUrl: './view-employee-details.component.css'
 })
-export class ViewEmployeeDetailsComponent {
-
+export class ViewEmployeeDetailsComponent{
+    //modalRef: MdbModalRef<UpdateModalComponent> | null = null;
     isLoading: boolean = false;
     rowData: EmployeeDetails[] = [];
     colDefs: any[] = EmployeeDetailsColDefs;
@@ -101,7 +103,7 @@ export class ViewEmployeeDetailsComponent {
               this.isLoading = false;
           },
           error: (error: any) => {
-            this.sendMessage(this.errorMessage, Status.Error);
+            //this.sendMessage(this.errorMessage, Status.Error);
             this.isLoading=true;
           }
         });
@@ -112,10 +114,11 @@ export class ViewEmployeeDetailsComponent {
     }
   
     onSelectionChanged(event: SelectionChangedEvent) {
-      const selectedData = this.gridApi.getSelectedRows();
-      this.selectedRows = selectedData;
+      this.selectedRows  = this.gridApi.getSelectedRows();
       //console.log("onSelectionChanged:",this.selectedRows);
-      if(this.selectedRows.length>0) {
+      let length = this.selectedRows.length;
+      if(length >0 ) {
+        //this.disableUpdateButton =  length < 2 ? false : true;
         this.disable = false;
       } else {
         this.disable = true;
