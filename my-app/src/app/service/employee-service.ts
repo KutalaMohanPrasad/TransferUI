@@ -1,6 +1,7 @@
 import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { CreateEmployee } from "../create-employee-details/create-employee-details.component";
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +13,9 @@ export class EmployeeService{
     }
     private baseUrl: string = "http://localhost:8080/api/v1/"
     private getEmployeeDetails='getAllEmployeeDetails';
-    private createEmployee='createEmployee';
-    private udpateEmployee='updateEmployee';
-    private deleteEmployeesurl='deleteEmployees';
+    private createEmployeeEndpoint='createEmployee';
+    private udpateEmployeeEndpoint='updateEmployee';
+    private deleteEmployeesEndpoint='deleteEmployees';
 
     refreshData: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -23,11 +24,15 @@ export class EmployeeService{
     }
     
     deleteEmployees(employeeIds: any){
-        return this.httpClient.post(this.baseUrl+this.deleteEmployeesurl, employeeIds);
+        return this.httpClient.post(this.baseUrl+this.deleteEmployeesEndpoint, employeeIds);
     }
 
     udpateEmployeeDetails(updateEmployeeRequest:UpdateEmployee) {
-        return this.httpClient.post(this.baseUrl+this.udpateEmployee, updateEmployeeRequest);
+        return this.httpClient.post(this.baseUrl+this.udpateEmployeeEndpoint, updateEmployeeRequest);
+    }
+
+    createEmployee(createEmployee: CreateEmployee){
+        return this.httpClient.post(this.baseUrl+this.createEmployeeEndpoint, createEmployee);
     }
 
 }
