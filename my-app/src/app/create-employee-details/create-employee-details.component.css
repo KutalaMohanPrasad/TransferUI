@@ -1,0 +1,18 @@
+.create-container {
+    margin-top: 100px;
+    padding-left: 430px;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+  
+  .create-container  > * {
+    width: 60%;
+  }
+  
+  .create-full-width {
+    width: 100%;
+  }
+  button {
+    background-color: #555555; 
+  }
