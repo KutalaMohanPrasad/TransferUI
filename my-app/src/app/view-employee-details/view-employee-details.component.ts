@@ -28,7 +28,7 @@ export class ViewEmployeeDetailsComponent{
     rowData: EmployeeDetails[] = [];
     colDefs: any[] = EmployeeDetailsColDefs;
     subscription: Subscription[] = [];
-    errorMessage: string = 'There was an error whiel loading this page. please try again after sometime.';
+    errorMessage: string = 'Error while deleting the user. please try again after sometime.';
     userDeletedMessage: string = 'Selected User(s) are deleted successfully.';
     selectedRows: EmployeeDetails[] = [];
     public defaultColDef: ColDef = {
@@ -90,23 +90,22 @@ export class ViewEmployeeDetailsComponent{
         this.selectedRows.forEach(emp => {
           deleteEmployeesIds.push(emp.emp_id);
         });
-        this.employeeService.deleteEmployees(deleteEmployeesIds).subscribe({
+       this.employeeService.deleteEmployees(deleteEmployeesIds).subscribe({
             next: (gridData: BaseResponse<any[]>) => {
               
               if(gridData.response === 'SUCCESS') {
-                    //this.sendMessage(this.userDeletedMessage, Status.Success);
-                    console.log(this.userDeletedMessage);
+                    this.sendMessage(this.userDeletedMessage, Status.Success);
               } else if(gridData.response === 'PARTIAL_SUCCESS') {
-                //this.sendMessage(this.userDeletedMessage, Status.Partial);
+                this.sendMessage(this.userDeletedMessage, Status.Partial);
               }
               this.getEmployeeDetails();
               this.isLoading = false;
           },
           error: (error: any) => {
-            //this.sendMessage(this.errorMessage, Status.Error);
+            this.sendMessage(this.errorMessage, Status.Error);
             this.isLoading=true;
           }
-        });
+        }); 
         this.disable = true;
       } else {
         this.disable = true;

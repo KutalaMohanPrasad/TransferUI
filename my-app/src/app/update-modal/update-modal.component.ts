@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseResponse } from '../response/baseResponse';
+import { Status } from '../response/status';
 import { EmployeeDetails, EmployeeService, UpdateEmployee } from '../service/employee-service';
+import { Message, MessageService } from '../service/message-service';
 
 @Component({
   selector: 'app-update-modal',
@@ -15,9 +17,11 @@ export class UpdateModalComponent {
   closeResult: string = '';
   @Input() rowSelection : EmployeeDetails[] = [];
   updateUserForm: FormGroup;
-  userUpdatedMessage: string = "User Updated Successfully.";
+  userUpdatedMessage: string = 'User Updated Successfully.';
+  errorMessage: string = 'Error while deleting the user. please try again after sometime.';
   constructor(private modalService: NgbModal,
-    private employeeService: EmployeeService) {
+    private employeeService: EmployeeService,
+    private messageService: MessageService) {
     this.updateUserForm = new FormGroup({
       emp_id : new FormControl({value:'', disabled:false},[Validators.required, Validators.pattern("^[0-9]*$")]),
       name: new FormControl({value:'', disabled:false}, Validators.required),
@@ -82,13 +86,13 @@ export class UpdateModalComponent {
         next: (gridData: BaseResponse<any[]>) => {
           //console.log("update response",gridData);
           if(gridData.response === 'SUCCESS') {
-                //this.sendMessage(this.userUpdatedMessage, Status.Success);
+                this.sendMessage(this.userUpdatedMessage, Status.Success);
                 console.log(this.userUpdatedMessage);
                 this.employeeService.refreshData.next(true);
           } 
       },
       error: (error: any) => {
-        //this.sendMessage(this.errorMessage, Status.Error);
+        this.sendMessage(this.errorMessage, Status.Error);
         console.log("Error",error);
       }
     });
@@ -98,4 +102,14 @@ export class UpdateModalComponent {
       this.rowSelection = [];
     }
   }
+
+  sendMessage(text: string, type: Status) {
+    const message: Message ={
+      type: type,
+      body: text
+    };
+    
+    this.messageService.sendMessage(message);
+  }
+
 }

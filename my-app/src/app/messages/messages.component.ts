@@ -2,11 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [MatIconModule, CommonModule, BrowserAnimationsModule],
+  imports: [MatIconModule, CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css'
 })

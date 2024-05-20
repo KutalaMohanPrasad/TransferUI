@@ -14,6 +14,8 @@ import moment from 'moment';
 import { EmployeeService } from '../service/employee-service';
 import { BaseResponse } from '../response/baseResponse';
 import { Router } from '@angular/router';
+import { Status } from '../response/status';
+import { Message, MessageService } from '../service/message-service';
 
 export const MY_FORMATS = {
   parse: {
@@ -47,9 +49,10 @@ export class CreateEmployeeDetailsComponent{
 
   createUserForm: FormGroup;
   userCreatedMessage: string = "User Created Successfully.";
-
+  errorMessage: string = 'Error while creating the user. please try again after sometime.';
   constructor(private employeeService: EmployeeService,
-    private router: Router) {
+    private router: Router,
+    private messageService: MessageService) {
     this.createUserForm = new FormGroup({
       name: new FormControl({value:'', disabled:false}, Validators.required),
       job_name: new FormControl({value:'', disabled:false}, Validators.required),
@@ -78,28 +81,37 @@ export class CreateEmployeeDetailsComponent{
       };
 
       //check request is valid and send to backend to process
-      console.log("request:",request);
+      //console.log("request:",request);
       this.employeeService.createEmployee(request).subscribe({
         next: (gridData: BaseResponse<any[]>) => {
           //console.log("update response",gridData);
           if(gridData.response === 'SUCCESS') {
-                //this.sendMessage(this.userUpdatedMessage, Status.Success);
-                console.log(this.userCreatedMessage);
+                this.sendMessage(this.userCreatedMessage, Status.Success);
                 this.employeeService.refreshData.next(true);
           } 
       },
       error: (error: any) => {
-        //this.sendMessage(this.errorMessage, Status.Error);
+        this.sendMessage(this.errorMessage, Status.Error);
         console.log("Error",error);
     }
   });
+  
         setTimeout(() => {
           this.router.navigate(['home']);
-      }, 4000); 
+      }, 3500); 
   }
 
   onReset() {
     this.createUserForm.reset();
+}
+
+sendMessage(text: string, type: Status) {
+  const message: Message ={
+    type: type,
+    body: text
+  };
+  
+  this.messageService.sendMessage(message);
 }
   
 }
